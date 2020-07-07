@@ -1,7 +1,10 @@
 {
   "name": "blogs",
   "main": "./bin/www",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.11.0"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -14,8 +17,7 @@
     "express": "^4.17.1",
     "http-errors": "~1.6.3",
     "method-override": "^3.0.0",
-    "mongoose": "^5.9.22",
-    "morgan": "~1.9.1"
+    "mongoose": "^5.9.22"
   },
   "description": "",
   "keywords": [],
