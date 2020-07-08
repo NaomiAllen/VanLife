@@ -1,7 +1,8 @@
 const Blog = require("../models/blog");
 
 module.exports = {
-  index
+  index,
+  new: addNew
 };
 
 function index(req, res) {
@@ -11,3 +12,6 @@ function index(req, res) {
   });
 }
 
+function addNew(req, res){
+  res.render("blogs/new.ejs")
+}

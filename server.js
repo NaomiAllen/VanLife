@@ -4,6 +4,7 @@ const path = require("path");
 const app = express();
 const PORT= 3000;
 const methodOverride = require("method-override");
+const bcrypt = require('bcrypt')
 
 require('dotenv').config();
 
@@ -27,11 +28,6 @@ app.use("/", indexRouter);
 app.use("/blogs", blogsRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -42,6 +38,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+//index
 
 app.listen(PORT, function() {
   console.log(`running on port ${PORT}`)
