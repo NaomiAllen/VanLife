@@ -2,7 +2,8 @@ const Blog = require("../models/blog");
 
 module.exports = {
   index,
-  new: addNew
+  new: addNew,
+  delete: deleteItem
 };
 
 function index(req, res) {
@@ -14,4 +15,8 @@ function index(req, res) {
 
 function addNew(req, res){
   res.render("blogs/new.ejs")
+}
+
+function deleteItem(req,res){
+  res.send('deleting')
 }

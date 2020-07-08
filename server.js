@@ -2,11 +2,13 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const PORT= 3000;
 const methodOverride = require("method-override");
 const bcrypt = require('bcrypt')
 
+
 require('dotenv').config();
+const PORT = process.env.PORT
+const mongodbURI = process.env.MONGODBURI
 
 const indexRouter = require("./routes/index");
 const blogsRouter = require("./routes/blogs");
@@ -45,4 +47,4 @@ app.listen(PORT, function() {
   console.log(`running on port ${PORT}`)
 });
 
-module.exports = app;
+
