@@ -4,5 +4,8 @@ const blogsCtrl = require("../controllers/blogs");
 
 router.get("/", blogsCtrl.index);
 router.get("/new", blogsCtrl.new);
-router.delete("/delete", blogsCtrl.delete)
+router.delete("/delete", blogsCtrl.delete);
+
+
+
 module.exports = router;

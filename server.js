@@ -3,8 +3,11 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const methodOverride = require("method-override");
-const bcrypt = require('bcrypt')
-
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const hashedString = bcrypt.hashSync('this is my string', bcrypt.genSaltSync(10))
+const userController = require('./controllers/users.js')
+app.use('/users', userController)
 
 require('dotenv').config();
 const PORT = process.env.PORT
@@ -17,18 +20,28 @@ const usersRouter = require('./routes/users');
 require("./config/database");
 
 
-// view engine setup
+
+// view setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use("/", indexRouter);
 app.use("/blogs", blogsRouter);
 app.use('/users', usersRouter);
+
+app.use(
+  session({
+    secret: process.env.SECRET, 
+    resave: false, 
+    saveUninitialized: false 
+  })
+)
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -41,7 +54,6 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-//index
 
 app.listen(PORT, function() {
   console.log(`running on port ${PORT}`)
