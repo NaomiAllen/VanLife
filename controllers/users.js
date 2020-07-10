@@ -1,21 +1,59 @@
-const bcrypt = require('bcrypt')
-const express = require('express')
-const users = express.Router()
-const User = require('../models/user.js')
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
 
 
-
-users.get('/new', (req, res) => {
-    res.render('users/new.ejs')
-})
+const User = require('../models/user.js');
 
 
-users.post('/', (req, res) => {
-    req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
-User.create(req.body, (err, createdUser) => {
-    console.log('user is created', createdUser)
-    res.redirect('/home')
-    })
-})
+//new
+router.get('/new', (req, res) => {
+    res.render('users/new.ejs', {
+        currentUser: req.session.currentUser
+    });
+});
 
-module.exports = users
+
+//create
+router.post('/', (req, res) => {
+    req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+    User.create(req.body, (err, createdUser) => {
+        if (err){
+            console.log(err)
+        }else{
+        console.log('user is created', createdUser);
+        res.render('/sessions/new.ejs',{
+            currentUser: createdUser
+        })
+        }
+    });
+});
+
+//edit
+router.get('/:id/edit', (req, res) => {
+    User.findById(req.params.id, (error, foundUser) => {
+        res.render('users/edit.ejs', {
+        user: foundUser,
+        currentUser: req.session.currentUser
+        });
+    });
+});
+
+// update
+router.put('/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedModel) => {
+        res.redirect('/');
+    });
+});
+
+//show
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id, (err, foundUser) => {
+        res.render('users/show.ejs', {
+        user: foundUser,
+        currentUser: req.session.currentUser
+        });
+    });
+});
+
+module.exports = router;

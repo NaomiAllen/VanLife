@@ -1,62 +1,61 @@
-
-const express = require("express");
-const path = require("path");
+const express = require('express');
 const app = express();
-const methodOverride = require("method-override");
-const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const session = require('express-session');
-const hashedString = bcrypt.hashSync('this is my string', bcrypt.genSaltSync(10))
-const userController = require('./controllers/users.js')
-app.use('/users', userController)
+const blogsController = require('./controllers/blogs.js');
+const usersController = require('./controllers/users.js');
+const sessionsController = require('./controllers/sessions.js');
+const Blogs =require('./models/blog')
 
 require('dotenv').config();
-const PORT = process.env.PORT
-const mongodbURI = process.env.MONGODBURI
-
-const indexRouter = require("./routes/index");
-const blogsRouter = require("./routes/blogs");
-const usersRouter = require('./routes/users');
-
-require("./config/database");
+const PORT = process.env.PORT;
 
 
-
-// view setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
-
-app.use(express.json());
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(methodOverride('_method'));
 
-
-app.use("/", indexRouter);
-app.use("/blogs", blogsRouter);
-app.use('/users', usersRouter);
-
+// middleware 
 app.use(
   session({
-    secret: process.env.SECRET, 
-    resave: false, 
-    saveUninitialized: false 
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
   })
-)
+);
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+//mongodb
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/blogs-app';
+mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('mongo connected');
+});
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+app.use('/sessions', sessionsController);
+app.use('/blogs', blogsController);
+app.use('/users', usersController);
+
+// index for site
+app.get('/', (req, res) => {
+  Blogs.find({}, (err, foundBlogs)=>{
+    if (err){console.log(err)} else{
+      res.render('index.ejs', {
+        blogs: foundBlogs,
+        currentUser: req.session.currentUser,
+  });
+      
+  }
+  })
 });
 
 
-app.listen(PORT, function() {
-  console.log(`running on port ${PORT}`)
+app.listen(PORT, () => {
+  console.log('listening');
 });
+
+
 
 

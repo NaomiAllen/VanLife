@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <header>
+			<h1>Create your new blog</h1>
+			<nav>
+				<ul>
+					<li>
+						<a href="/">Home</a>
+					</li>
+					<li>
+						<a href="/blogs">blogs Index</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+        <form action="/blogs" method="POST">
+            title: <input type="text" name="title" /><br/>
+            location: <input type="text" name="location" /><br/>
+            <textarea name="blog"placeholder='type your masterpiece here'></textarea>
+            Blog is complete: <input type="checkbox" name="blogComplete" /><br/>
+            <input type="submit" name="" value="Add Blog to Collection"/>
+        </form>
+    </body>
+</html>

@@ -1,24 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/stylesheets/main.css" />
-  <title><%= title %></title>
-</head>
-<body>
-  <h1>Van-Tastic</h1>
-  <p>Existing users sign in:</p>   
-  <form action="/users" method="POST">
-    <label for="username">USERNAME:</label>
-<input type="text" id="username"/><br>
-
-<label for="password">PASSWORD:</label>
-<input type="password" id="password"><br> 
-
-<input type="submit" value="Log In"><br>
-
-<a href= "users/new">Sign Up</a>
-</form>
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Van-Tastic</title>
+    </head>
+    <body>
+        <h1>Blogs index page</h1>
+        <nav>
+          <%- include('./partials/nav.ejs') %>
+        </nav>
+        <ul>
+            <% for(let i = 0; i < blogs.length; i++){ %>
+              <li>
+                The
+                <a href="/blogs/<%=blogs[i].id %>"><%=blogs[i].title; %>
+                </a>
+                located in  <%=blogs[i].location; %>.
+                
+                <% if(blogs[i].blogComplete === true){ %>
+                    This masterpiece is complete!
+                <% } else { %>
+                    This Masterpiece is still needs work
+                <% } %>
+                <form action="/blogs/<%= blogs[i].id %>?_method=DELETE" method="POST">
+                    <input type="submit" value="DELETE"/>
+                </form>
+                <a href="/blogs/<%=blogs[i].id %>/edit">Edit</a>
+            </li>
+            <% } %>
+        </ul>
+    </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <h1>Edit Blog Page</h1>
+        <section>
+            <a href="/blogs/<%=blogs.name%>/edit">Edit</a>
+        </section>
+        <form action="/blogs/<%=blogs.name%>?_method=PUT" method="POST">
+            Name: <input type="text" name="name" value="<%=fruit.name%>"/><br/>
+            body:<textarea></textarea>
+    		  location: <input type="text" name="location" value="<%=blogs.location%>"/><br/>
+    		  Blog is Complete?:
+            <input type="checkbox" name="blogComplete"
+                <% if(blogs.blogComplete === true) { %>
+                    checked
+                <% } %>
+            />
+            <br/>
+            <input type="submit" name="" value="Submit Changes"/>
+        </form>
+    </body>
+</html>
