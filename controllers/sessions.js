@@ -7,7 +7,7 @@ const sessions = express.Router();
 
 // get session
 sessions.get('/new', (req, res) => {
-  res.render('views/show.ejs', { currentUser: req.session.currentUser });
+  res.render('sessions/new.ejs', { currentUser: req.session.currentUser });
 });
 
 
@@ -24,7 +24,7 @@ sessions.post('/', (req, res) => {
         // add the user to our session
         req.session.currentUser = foundUser
         // redirect back to our home page
-        res.redirect('/')
+        res.redirect('/blogs')
         } else {
         res.send('<a href="/"> Invalid Password </a>')
         }
@@ -36,7 +36,7 @@ sessions.post('/', (req, res) => {
 // end session
 sessions.delete('/', (req, res) => {
     req.session.destroy(() => {
-    res.redirect('/');
+    res.redirect('/blogs');
     });
 });
 

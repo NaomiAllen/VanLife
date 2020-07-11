@@ -7,7 +7,7 @@ const isAuthenticated = (req, res, next) => {
   if (req.session.currentUser) {
     return next();
   } else {
-    res.redirect('/views/show');
+    res.redirect('/sessions/new');
   }
 }
 
@@ -16,6 +16,7 @@ const isAuthenticated = (req, res, next) => {
 //index
 router.get('/', isAuthenticated, (req, res)=>{
   Blog.find({}, (error, foundBlog)=>{
+    console.log(foundBlog)
     res.render('index.ejs', {
       blogs: foundBlog,
       currentUser: req.session.currentUser
@@ -36,8 +37,8 @@ router.post('/', isAuthenticated, (req, res)=>{
   } else { 
     req.body.blogComplete = false;
   } Blog.create(req.body, (err, createdBlog)=>{
+    console.log(createdBlog)
     if (err){
-      console.log(err)
     }else{
     res.redirect('/blogs');
     }
@@ -81,7 +82,7 @@ router.get('/:id', (req, res) =>{
 
 //delete
 router.delete('/:id', isAuthenticated, (req, res) => {
-  Blog.findByIdAndRemove(req.params.id,()=> { useFindAndModify: false }, (err, data)=>{
+  Blog.findByIdAndRemove(req.params.id, {useFindAndModify: false }, (err, data)=>{
     res.redirect('/blogs') 
   })
 })

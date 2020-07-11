@@ -1,7 +1,7 @@
 <ul class="right">
     <% if (currentUser) { %>
-        <li><a href="/blogs/new">Create a new blog</a></li>
         <li>Welcome <%= currentUser.username %></li>
+        <li><a href="/blogs/new">Create a new blog</a></li>
     <li>
       <form action="/sessions?_method=DELETE" method="POST">
         <input type="submit" value="Log Out" class="btn-small red" />

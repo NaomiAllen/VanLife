@@ -10,10 +10,10 @@
             <a href="/blogs/<%=blogs.name%>/edit">Edit</a>
         </section>
         <form action="/blogs/<%=blogs.name%>?_method=PUT" method="POST">
-            Name: <input type="text" name="name" value="<%=fruit.name%>"/><br/>
+            Name: <input type="text" name="name" value="<%=blogs.name%>"/><br/>
             body:<textarea></textarea>
-    		  location: <input type="text" name="location" value="<%=blogs.location%>"/><br/>
-    		  Blog is Complete?:
+    		location: <input type="text" name="location" value="<%=blogs.location%>"/><br/>
+    		Blog is Complete?:
             <input type="checkbox" name="blogComplete"
                 <% if(blogs.blogComplete === true) { %>
                     checked

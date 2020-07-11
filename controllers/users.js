@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 //edit
 router.get('/:id/edit', (req, res) => {
     User.findById(req.params.id, (error, foundUser) => {
-        res.render('users/edit.ejs', {
+        res.render('views/edit.ejs', {
         user: foundUser,
         currentUser: req.session.currentUser
         });
@@ -42,7 +42,7 @@ router.get('/:id/edit', (req, res) => {
 // update
 router.put('/:id', (req, res) => {
     User.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedModel) => {
-        res.redirect('/');
+        res.redirect('/blogs');
     });
 });
 
