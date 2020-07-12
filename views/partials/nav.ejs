@@ -1,14 +1,24 @@
-<ul class="right">
-    <% if (currentUser) { %>
-        <li>Welcome <%= currentUser.username %></li>
-        <li><a href="/blogs/new">Create a new blog</a></li>
-    <li>
-      <form action="/sessions?_method=DELETE" method="POST">
-        <input type="submit" value="Log Out" class="btn-small red" />
-      </form>
-    </li>
-    <% } else { %>
-        <li><a href="/users/new">Sign Up</a></li>
-        <li><a href="/sessions/new">Log In</a></li>
-    <% } %>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <ul class="right">
+        <% if (currentUser) { %>
+            <li>Welcome <%= currentUser.username %></li>
+            <li><a href="/blogs/new">Create a new blog</a></li>
+        <li>
+          <form action="/sessions?_method=DELETE" method="POST">
+            <input type="submit" value="Log Out" class="btn-small red" />
+          </form>
+        </li>
+        <% } else { %>
+            <li><a href="/users/new">Sign Up</a></li>
+            <li><a href="/sessions/new">Log In</a></li>
+        <% } %>
+    </ul>
+</body>
+</html>
