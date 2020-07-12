@@ -37,7 +37,6 @@ router.post('/', isAuthenticated, (req, res)=>{
   } else { 
     req.body.blogComplete = false;
   } Blog.create(req.body, (err, createdBlog)=>{
-    console.log(createdBlog)
     if (err){
     }else{
     res.redirect('/blogs');
@@ -49,8 +48,11 @@ router.post('/', isAuthenticated, (req, res)=>{
 //edit
 router.get('/:id/edit', isAuthenticated, (req, res)=>{
   Blog.findById(req.params.id, (err, foundBlog)=>{ 
+    console.log(foundBlog),
       res.render('edit.ejs', {
         blogs: foundBlog, 
+        // blogs: foundBlog[req.params.id], //the fruit object
+			  // id: req.params.id, 
         currentUser: req.session.currentUser
       })
   })
@@ -58,12 +60,8 @@ router.get('/:id/edit', isAuthenticated, (req, res)=>{
 
 //update
 router.put('/:id', isAuthenticated, (req, res)=>{
-  if(req.body.blogComplete === 'on'){
-      req.body.blogComplete = true;
-  } else {
-      req.body.blogComplete = false;
-  }
   Blog.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedModel)=> {
+    console.log(updatedModel)
     res.redirect('/blogs');
   })
 })

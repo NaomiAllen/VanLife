@@ -6,19 +6,10 @@
     </head>
     <body>
         <h1>Edit Blog Page</h1>
-        <section>
-            <a href="/blogs/<%=blogs.name%>/edit">Edit</a>
-        </section>
-        <form action="/blogs/<%=blogs.name%>?_method=PUT" method="POST">
-            Name: <input type="text" name="name" value="<%=blogs.name%>"/><br/>
-            body:<textarea></textarea>
-    		location: <input type="text" name="location" value="<%=blogs.location%>"/><br/>
-    		Blog is Complete?:
-            <input type="checkbox" name="blogComplete"
-                <% if(blogs.blogComplete === true) { %>
-                    checked
-                <% } %>
-            />
+        <form action="/blogs/<%=blogs.id%>?_method=PUT" method="POST">
+            Title:<br><input type="text" name="title" value="<%=blogs.title%>"/><br/>
+    		Location:<br><input type="text" name="location" value="<%=blogs.location%>"/><br/>
+            Body:<br><textarea type:"text" name="body" value="<%=blogs.body%>"></textarea><br>
             <br/>
             <input type="submit" name="" value="Submit Changes"/>
         </form>
