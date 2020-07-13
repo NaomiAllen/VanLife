@@ -13,6 +13,7 @@ sessions.get('/new', (req, res) => {
 
 // create session
 sessions.post('/', (req, res) => {
+    console.log(req.body)
     User.findOne({userName: req.body.userName}, (err, foundUser) => {
     if (err) {
         console.log(err);
@@ -36,7 +37,7 @@ sessions.post('/', (req, res) => {
 // end session
 sessions.delete('/', (req, res) => {
     req.session.destroy(() => {
-    res.redirect('/blogs');
+    res.redirect('/');
     });
 });
 

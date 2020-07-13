@@ -3,21 +3,22 @@ const router = express.Router();
 
 const Blog = require("../models/blog.js");
 
-const isAuthenticated = (req, res, next) => {
-  if (req.session.currentUser) {
-    return next();
-  } else {
-    res.redirect('/sessions/new');
-  }
-}
+// const isAuthenticated = (req, res, next) => {
+//   console.log(req.session.currentUser,"session user")
+//   if (req.session.currentUser) {
+//     return next();
+//   } else {
+//     res.redirect('/sessions/new');
+//   }
+// }
 
 //ROUTES
 
 //index
-router.get('/', isAuthenticated, (req, res)=>{
+router.get('/', (req, res)=>{
   Blog.find({}, (error, foundBlog)=>{
     console.log(foundBlog)
-    res.render('index.ejs', {
+    res.render('../views/blogs/index.ejs', {
       blogs: foundBlog,
       currentUser: req.session.currentUser
     })
@@ -25,18 +26,14 @@ router.get('/', isAuthenticated, (req, res)=>{
 })
 
 //new
-router.get('/new',(req, res) => {res.render('new.ejs', {
+router.get('/new',(req, res) => {res.render('/blogs/new.ejs', {
   currentUser: req.session.currentUser
 });
 })
 
 //create
-router.post('/', isAuthenticated, (req, res)=>{
-  if(req.body.blogComplete === 'on'){ 
-    req.body.blogComplete = true;
-  } else { 
-    req.body.blogComplete = false;
-  } Blog.create(req.body, (err, createdBlog)=>{
+router.post('/', (req, res)=>{
+    Blog.create(req.body, (err, createdBlog)=>{
     if (err){
     }else{
     res.redirect('/blogs');
@@ -46,10 +43,10 @@ router.post('/', isAuthenticated, (req, res)=>{
   
 
 //edit
-router.get('/:id/edit', isAuthenticated, (req, res)=>{
+router.get('/:id/edit',(req, res)=>{
   Blog.findById(req.params.id, (err, foundBlog)=>{ 
     console.log(foundBlog),
-      res.render('edit.ejs', {
+      res.render('../views/blogs/edit.ejs', {
         blogs: foundBlog, 
         // blogs: foundBlog[req.params.id], //the fruit object
 			  // id: req.params.id, 
@@ -59,7 +56,7 @@ router.get('/:id/edit', isAuthenticated, (req, res)=>{
 })
 
 //update
-router.put('/:id', isAuthenticated, (req, res)=>{
+router.put('/:id', (req, res)=>{
   Blog.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedModel)=> {
     console.log(updatedModel)
     res.redirect('/blogs');
@@ -71,7 +68,7 @@ router.put('/:id', isAuthenticated, (req, res)=>{
 //show
 router.get('/:id', (req, res) =>{
   Blog.findById(req.params.id, (err, foundBlog)=>{
-    res.render('views/show.ejs', {
+    res.render('/blogs/show.ejs', {
       blogs: foundBlog,
       currentUser: req.session.currentUser
     })
@@ -79,7 +76,7 @@ router.get('/:id', (req, res) =>{
 })
 
 //delete
-router.delete('/:id', isAuthenticated, (req, res) => {
+router.delete('/:id',(req, res) => {
   Blog.findByIdAndRemove(req.params.id, {useFindAndModify: false }, (err, data)=>{
     res.redirect('/blogs') 
   })

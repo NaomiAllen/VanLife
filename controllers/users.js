@@ -49,7 +49,7 @@ router.put('/:id', (req, res) => {
 //show
 router.get('/:id', (req, res) => {
     User.findById(req.params.id, (err, foundUser) => {
-        res.render('users/show.ejs', {
+        res.render('views/show.ejs', {
         user: foundUser,
         currentUser: req.session.currentUser
         });

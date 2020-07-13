@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
-</head>
-<body>
-    <h1>Log In</h1>
+
+<%- include('../partials/nav.ejs') %>
     <form action="/sessions" method="POST">
-        Username: <input type="text" name="username"/><br/>
-        Password: <input type="password" name="password"/><br/>
-        <input type="submit" value="Log in"/>
+        <div class="form-group">
+          <label for="username">UserName:</label>
+          <input type="text" name="username" class="form-control" id="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" id="password">
+        </div>
+        <nav>
+            <button type="submit" name="submit" id= "submit" class="btn btn-primary">Submit</button>
+        </nav>
     </form>
 </body>
 </html>

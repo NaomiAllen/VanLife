@@ -25,6 +25,18 @@ app.use(
   })
 );
 
+
+const isAuthenticated = (req, res, next) => {
+  console.log(req.session.currentUser,"session user")
+  if (req.session.currentUser) {
+    return next();
+  } else {
+    res.redirect('/sessions/new');
+  }
+}
+
+app.use('/blogs', isAuthenticated);
+
 //mongodb
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/blogs-app';
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });

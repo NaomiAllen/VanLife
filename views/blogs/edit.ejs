@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
-        <h1>Edit Blog Page</h1>
+<%- include('../partials/nav.ejs') %>
+    <h1>Edit Blog Page</h1>
         <form action="/blogs/<%=blogs.id%>?_method=PUT" method="POST">
             Title:<br><input type="text" name="title" value="<%=blogs.title%>"/><br/>
     		Location:<br><input type="text" name="location" value="<%=blogs.location%>"/><br/>
