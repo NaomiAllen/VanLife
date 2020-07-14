@@ -5,3 +5,9 @@ body {
 .header{
   background-color: aquamarine;
 }
+
+
+.nav {
+  display: inline-block;
+  color:purple;
+}

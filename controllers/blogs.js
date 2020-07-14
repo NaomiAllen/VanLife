@@ -18,7 +18,7 @@ const Blog = require("../models/blog.js");
 router.get('/', (req, res)=>{
   Blog.find({}, (error, foundBlog)=>{
     console.log(foundBlog)
-    res.render('../views/blogs/index.ejs', {
+    res.render('blogs/index.ejs', {
       blogs: foundBlog,
       currentUser: req.session.currentUser
     })
@@ -26,7 +26,7 @@ router.get('/', (req, res)=>{
 })
 
 //new
-router.get('/new',(req, res) => {res.render('/blogs/new.ejs', {
+router.get('/new',(req, res) => {res.render('blogs/new.ejs', {
   currentUser: req.session.currentUser
 });
 })
@@ -46,7 +46,7 @@ router.post('/', (req, res)=>{
 router.get('/:id/edit',(req, res)=>{
   Blog.findById(req.params.id, (err, foundBlog)=>{ 
     console.log(foundBlog),
-      res.render('../views/blogs/edit.ejs', {
+      res.render('blogs/edit.ejs', {
         blogs: foundBlog, 
         // blogs: foundBlog[req.params.id], //the fruit object
 			  // id: req.params.id, 
@@ -78,6 +78,7 @@ router.get('/:id', (req, res) =>{
 //delete
 router.delete('/:id',(req, res) => {
   Blog.findByIdAndRemove(req.params.id, {useFindAndModify: false }, (err, data)=>{
+    console.log(data)
     res.redirect('/blogs') 
   })
 })

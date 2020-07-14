@@ -1,19 +1,30 @@
 <%- include('../partials/nav') %>
 
   <ul>
+    <a href="/blogs/new" type="button" class="btn btn-success" >Create a new blog</a>
+    <a href="/sessions/new" type="button" value="Log Out" class="btn btn-secondary">Log Out</a><br>
     <% for(let i = 0; i < blogs.length; i++){ %>
-      <li>
-        <a href="/blogs/<%=blogs[i].id %>">
-          <%=blogs[i].title; %>
-        </a><br>
-          Location:  <%=blogs[i].location; %><br>
-            <%=blogs[i].body%>
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="images/utah" class="card-img" alt="Image">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Title: <%=blogs[i].title%></h5>
+              <h6 class="card-title">Location: <%=blogs[i].location%></h6>
+              <p class="card-text"><%=blogs[i].body%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+        <a href="/blogs/<%=blogs[i].id %>"></a>
       <form action="/blogs/<%= blogs[i].id %>?_method=DELETE" method="POST">
-        <input type="submit" value="DELETE"/>
+        <input class="btn btn-danger" type="button" value="DELETE"/>
+        <a href="/blogs/<%=blogs[i].id %>/edit" type="button" class="btn btn-info">Edit</a>
       </form>
-        <a href="/blogs/<%=blogs[i].id %>/edit">Edit</a>
           </li><br>
           <% } %>
   </ul>
-  <p>this is index.ejs</p>
+  
 </html>
