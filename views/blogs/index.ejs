@@ -1,13 +1,13 @@
 <%- include('../partials/nav') %>
 
   <ul>
-    <a href="/blogs/new" type="button" class="btn btn-success" >Create a new blog</a>
+    <a href="/blogs/new" type="button" class="btn btn-success" >Add a new entry</a>
     <a href="/sessions/new" type="button" value="Log Out" class="btn btn-secondary">Log Out</a><br>
     <% for(let i = 0; i < blogs.length; i++){ %>
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="images/utah" class="card-img" alt="Image">
+            <img src=" " class="card-img" alt="Image">
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -20,7 +20,7 @@
       </div>
         <a href="/blogs/<%=blogs[i].id %>"></a>
       <form action="/blogs/<%= blogs[i].id %>?_method=DELETE" method="POST">
-        <input class="btn btn-danger" type="button" value="DELETE"/>
+        <input class="btn btn-danger" type="submit" value="DELETE"/>
         <a href="/blogs/<%=blogs[i].id %>/edit" type="button" class="btn btn-info">Edit</a>
       </form>
           </li><br>

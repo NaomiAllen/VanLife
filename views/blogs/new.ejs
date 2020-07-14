@@ -1,7 +1,7 @@
 <%- include('../partials/nav.ejs') %>
 
         <header>
-			<h1>Create your new blog</h1>
+			<h1>New Entry</h1>
 			<nav>
 				<ul>
 					<li>
@@ -11,10 +11,14 @@
 			</nav>
 		</header>
         <form action="/blogs" method="POST">
-            title: <input type="text" name="title" /><br/>
-            location: <input type="text" name="location" /><br/>
-            body:<textarea class="form-control" name="body" id="textarea" placeholder='type your masterpiece here'></textarea><br>
-            <input type="submit" name="" value="Add Blog to Collection"/>
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Upload Image</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+              </div>
+            Title: <input type="text" name="title"/><br/>
+            Location: <input type="text" name="location" /><br/>
+            <textarea class="form-control" name="body" id="textarea" placeholder='type your masterpiece here'></textarea><br>
+            <input type="submit" name="" value="Add Blog to Collection" class="btn btn-info"/>
         </form>
     </body>
 </html>

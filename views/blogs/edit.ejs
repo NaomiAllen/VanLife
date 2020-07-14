@@ -1,5 +1,5 @@
 <%- include('../partials/nav.ejs') %>
-    <h1>Edit Blog Page</h1>
+    <h5>Edit Entry</h5>
         <form action="/blogs/<%=blogs.id%>?_method=PUT" method="POST">
             Title:<br><input type="text" name="title" value="<%=blogs.title%>"/><br/>
     		Location:<br><input type="text" name="location" value="<%=blogs.location%>"/><br/>
