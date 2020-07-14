@@ -10,6 +10,9 @@ Javascript
 CSS
 HTML
 MongoDB
+Mongoose
+Express
+EJS
 Node.js
 Heroku
 Bootstrap
